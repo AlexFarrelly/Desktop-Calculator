@@ -151,4 +151,4 @@ Please pick the number of what action you would like to do: """))
                 return print(n)
 
 while True:
-    fractions()
+    fractions() 
