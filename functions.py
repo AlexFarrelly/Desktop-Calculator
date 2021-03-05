@@ -1,4 +1,4 @@
-class functions():
+class basicFunctions():
     def __init__(self, values, anwser):
         self.anwser, self.done, function, leftint, rightint = anwser, False, [], [], []
         for i in range(len(values)):
@@ -53,5 +53,47 @@ class functions():
             return self.anwser
         else:
             return self.anwser
+
+class fractions():
+    def __init__(self, values):
+        self.rationalAprox(values)
+    class rationalAprox():
+        def __init__(self, value):
+            try:
+                self.decimal("68.975")
+            except:
+                print("Syntax Error")
+
+        def decimal(self, n):
+            wholeN, count = [], 0
+            try:
+                listN = list(n)
+                for i in listN:
+                    if i == ".":
+                        for i in range(count):
+                            wholeN.append(listN[0])
+                            listN.pop(0)
+                        listN, wholeN = [str(i) for i in listN], [str(a) for a in wholeN]
+                        listN, wholeN = "".join(listN), "".join(wholeN)
+                        listN, wholeN = float(listN), int(wholeN)
+                        return self.mediant(listN, wholeN, 0, 1, 1, 1)
+                    else:
+                        count += 1
+                print(n)
+            except:
+                return self.mediant(float(n), 0, 0, 1, 1, 1)
+
+        def mediant(self, n, wn, a, b, c, d):
+            try:
+                mediantTop = a+c
+                mediantBottom = b + d
+                if n > (mediantTop/mediantBottom):
+                    self.mediant(n, wn, mediantTop, mediantBottom, c, d)
+                elif n < (mediantTop/mediantBottom):
+                    self.mediant(n, wn ,a, b, mediantTop, mediantBottom) 
+                else:
+                    return print((mediantTop + (wn * mediantBottom)), "/", mediantBottom)
+            except:
+                return print(n)
     
 
