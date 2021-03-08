@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import font
+from tkinter.ttk import *
 import tkinter as tk
 import functions as func
 
@@ -7,7 +8,7 @@ import functions as func
 class Matrixwindow(tk.Frame):
     def __init__(self):
         GUI = tk.Tk()
-        GUI.title("A-level Calculator"), GUI.config(bg = "#171717")
+        GUI.title("A-level Calculator"), GUI.iconbitmap("Calcbitmap.ico"), GUI.config(bg = "#171717")
         self.DisplayWindow(GUI) and self.ButtonsFrame(GUI)
     
     class DisplayWindow():
@@ -15,12 +16,28 @@ class Matrixwindow(tk.Frame):
             super().__init__()
             self.GUI = GUI
             self.inputlist= []
-            topFrame = tk.Frame(GUI)
-            self.inputLabel = tk.Label(topFrame, text = "", width = 40, height = 4, padx = 6, anchor = "w")
+            self.topFrame = tk.Frame(GUI)
+            self.inputLabel = tk.Label(self.topFrame, text = "", width = 40, height = 4, padx = 6, anchor = "w")
             self.inputLabel.grid(row = 0, column = 0)
-            self.anwserLabel = tk.Label(topFrame, text = 0, width = 40, height = 4, padx = 6, anchor = "e")
+            self.anwserLabel = tk.Label(self.topFrame, text = 0, width = 40, height = 4, padx = 6, anchor = "e")
             self.anwserLabel.grid(row = 1, column = 0)
-            topFrame.grid(row = 0, column = 0, padx = 20, pady = 10)
+            self.topFrame.grid(row = 0, column = 0, padx = 20, pady = 10)
+            
+
+        def createMenu(self):
+            self.inputLabel.grid_forget()
+            self.anwserLabel.grid_forget()
+            
+##          Buttons icons
+            matrixPhoto = PhotoImage(file = r"/Users/alexander_farrelly/Desktop/calc/matrix.png")
+            matrixImage = matrixPhoto.subsample(10, 10)
+            matrixButton = tk.Button(self.topFrame, text = "Matrix", image = matrixImage, compound = TOP)
+            matrixButton.grid(row = 0, column = 0)
+            
+            
+            
+            
+            
 
         def enteredValue(self, text):
             if text == None:
