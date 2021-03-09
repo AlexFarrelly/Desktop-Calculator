@@ -1,21 +1,28 @@
 class basicFunctions():
     def __init__(self, values, anwser):
+        self.pi = 3.14159265358979323846264338
+        print(values)
         self.anwser, self.done, function, leftint, rightint = anwser, False, [], [], []
         for i in range(len(values)):
-            if values[i] == "x" or values[i] == "÷" or values[i] == "+" or values[i] == "-":
+            if values[i] == "x" or values[i] == "÷" or values[i] == "+" or values[i] == "-" or values[i] == "sin" or values[i] == "cos" or values[i] == "tan":
                 f1Pose = i
                 for i in range(f1Pose):
                     leftint.append(values[i])
+                    print(leftint)
                 break
         function.append(values[f1Pose])
         for i in range(len(values)):
-            if values[i] == "x" or values[i] == "÷" or values[i] == "+" or values[i] == "-":
+            if values[i] == "x" or values[i] == "÷" or values[i] == "+" or values[i] == "-" or values[i] == "sin" or values[i] == "cos" or values[i] == "tan":
                 f1Pose = i
                 for i in range(f1Pose, len(values)):
                     rightint.append(values[i])
                 break
         rightint.pop(0)
+        print(leftint, rightint)
         try:
+            if function == ["sin"] or function == ["cos"] or function == ["tan"]:
+                if len(leftint) == 0:
+                    leftint.append(1)
             a, b = [str(i) for i in leftint], [str(i) for i in rightint]
             a, b  = "".join(a), "".join(b)
             a, b  = float(a), float(b)
@@ -25,7 +32,7 @@ class basicFunctions():
             newright = []
             newValues = rightint
             for i in rightint:
-                if i == "x" or i == "÷" or i == "+" or i == "-":
+                if i == "x" or i == "÷" or i == "+" or i == "-" or i == "sin":
                     for num in range(0, rightint.index(i)):
                         rightint.pop(0)
                     break
@@ -47,15 +54,47 @@ class basicFunctions():
         elif func == ["+"]:
             self.anwser += a + b
         elif func == ["-"]:
-            self.anwser += a - b 
+            self.anwser += a - b
+        elif func == ["sin"]:
+            self.anwser = a * (self.sinValue(a, b))
+        elif func == ["cos"]:
+            self.anwser = a * (self.cosValue(a, b))
+        elif func == ["tan"]:
+            self.anwser = a * (self.tanValue(a, b))
         if self.anwser % 1 == 0:
             self.anwser = int(self.anwser)
         else:
             try:
-                self.anwser = (round(self.anwser, 12))
+                self.anwser = (round(self.anwser, 6))
             except:
                 pass
         return self.anwser
+
+    def sinValue(self, a, b):
+        radValue = self.findRadians(b)
+        sinSeries = ((radValue) - (radValue**3) / ((self. factorial(3))) + ((radValue **5 ) /(self. factorial(5))) - (radValue**7/ (self. factorial(7))))
+        return (sinSeries)
+    
+    def cosValue(self, a, b):
+        radValue = self.findRadians(b)
+        cosSeries = ((1 - (radValue**2) / ((self. factorial(2))) + ((radValue **4 ) /(self. factorial(4))) - (radValue**6/ (self. factorial(6)))))
+        return (cosSeries)
+
+    def tanValue(self, a, b):
+        tanSeries = (self.sinValue(a, b)) / (self.cosValue(a, b))
+        return (tanSeries)
+
+    def findRadians(self, b):
+        radValue = b * self.pi
+        radValue /= 180
+        return radValue
+
+    def factorial(self, n):
+        factorial = 1
+        if int(n) >= 1:
+            for i in range (1,int(n)+1):
+               factorial = factorial * i
+        return(factorial)
             
 class priorityValues():
     def __init__(self, values):

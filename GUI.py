@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import font
-from tkinter.ttk import *
+from tkinter import ttk
 import tkinter as tk
 import functions as func
 
@@ -27,15 +27,7 @@ class Matrixwindow(tk.Frame):
         def createMenu(self):
             self.inputLabel.grid_forget()
             self.anwserLabel.grid_forget()
-            
-##          Buttons icons
-            matrixPhoto = PhotoImage(file = r"/Users/alexander_farrelly/Desktop/calc/matrix.png")
-            matrixImage = matrixPhoto.subsample(10, 10)
-            matrixButton = tk.Button(self.topFrame, text = "Matrix", image = matrixImage, compound = TOP)
-            matrixButton.grid(row = 0, column = 0)
-            
-            
-            
+            self.Menu(self.GUI, self.topFrame)
             
             
 
@@ -104,8 +96,19 @@ class Matrixwindow(tk.Frame):
                        ErrorWindow("Syntax Error")
             else:
                 pass
+        class Menu():
+            def __init__(self, GUI, Frame):
+        ##      Buttons icons
+                matrixPhoto = tk.PhotoImage(file = r"C:/Users/alexf/OneDrive/Documents/Calculator/matrix.png")
+                matrixImage = matrixPhoto.subsample(5, 10)
+                matrixButton = tk.Button(Frame, text = "Matrix", image = matrixImage, compound = TOP, padx = 5, pady = 5)
+                graphingButton = tk.Button(Frame, text = "Graph", image = matrixImage, compound = "top", padx = 5, pady = 5)
+                equationButton = tk.Button(Frame, text = "Equation", image = matrixImage, compound = "top", padx = 5, pady = 5)
+                matrixButton.grid(row = 0, column = 0)
+                graphingButton.grid(row = 0, column = 1)
+                equationButton.grid(row = 0, column = 2)
 
-
+            
     class ButtonsFrame(DisplayWindow):
         def __init__(self, GUI):
             super().__init__(GUI)
@@ -133,6 +136,7 @@ class Matrixwindow(tk.Frame):
             sdButton.config(command = lambda: self.sdValues(self.lastanwser)), outsideBracketButton.config(command = lambda: self.enteredValue(outsideBracketButton.cget("text"))), insideBracketButton.config(command = lambda: self.enteredValue(insideBracketButton.cget("text")))
             squareButton.config(command = lambda: (self.enteredValue("^"), self.enteredValue("2"))), powerButton.config(command = lambda: (self.enteredValue("^"))), sinButton.config(command = lambda: (self.enteredValue("sin")))
             cosButton.config(command = lambda: (self.enteredValue("cos"))), tanButton.config(command = lambda: (self.enteredValue("tan")))
+            menuButton.config(command = self.createMenu)
             middleFrame.grid(row = 1, column = 0, padx = 20, pady = 10)
             bottomFrame = tk.Frame(GUI)
             
@@ -190,6 +194,7 @@ class Matrixwindow(tk.Frame):
             timesTenButton = tk.Button(bottomFrame, text = "x10^x", width = 7, height = 1, command = lambda: (self.enteredValue("x"), self.enteredValue("10"), self.enteredValue("^")))
             timesTenButton.grid(row = 3,column = 2)            
             bottomFrame.grid(row = 2, column = 0, padx = 20, pady = 10)
+
 
 class ErrorWindow():
     def __init__(self, error):
